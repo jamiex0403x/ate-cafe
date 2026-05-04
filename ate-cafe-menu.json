@@ -1,0 +1,50 @@
+[
+  {
+    "name": "開心果可麗露",
+    "nameEn": "Pistachio Canelé",
+    "label": "Canelé",
+    "desc": "焦糖脆殼包覆柔軟內心\n冷藏一夜，風味更完整",
+    "note": "★ 每日限量",
+    "price": 80
+  },
+  {
+    "name": "開心果瑪德蓮",
+    "nameEn": "Pistachio Madeleine",
+    "label": "Madeleine",
+    "desc": "法式貝殼蛋糕裹滿開心果\n現做限量，售完為止",
+    "note": "★ 每日限量",
+    "price": 75
+  },
+  {
+    "name": "手作抹茶",
+    "nameEn": "Handmade Matcha",
+    "label": "Matcha",
+    "desc": "嚴選日本抹茶粉\n甜而不膩，每日手作不過夜",
+    "note": "",
+    "price": 120
+  },
+  {
+    "name": "冰淇淋紅茶",
+    "nameEn": "Ice Cream Earl Grey",
+    "label": "Tea",
+    "desc": "伯爵紅茶底，一球冰淇淋緩緩融化\n拍照必點",
+    "note": "",
+    "price": 130
+  },
+  {
+    "name": "抹茶布朗尼",
+    "nameEn": "Matcha Brownie",
+    "label": "Brownie",
+    "desc": "濃郁黑巧克力遇上日式抹茶\n苦、甜、微澀，三層滋味交疊",
+    "note": "★ 每日限量",
+    "price": 100
+  },
+  {
+    "name": "石中冰",
+    "nameEn": "The Ice in Stone",
+    "label": "Ice",
+    "desc": "頂級生乳冰淇淋",
+    "note": "",
+    "price": 150
+  }
+]
