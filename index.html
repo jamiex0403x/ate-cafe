@@ -20,8 +20,15 @@ body { background:var(--bg-color); color:var(--text-color); font-family:'Noto Se
 }
 
 /* ===== ADMIN TOGGLE ===== */
-#admin-toggle {
+#mode-toggle {
   position:fixed; bottom:24px; right:24px; z-index:1000;
+  background:var(--green); color:white; border:none; border-radius:50px;
+  padding:12px 20px; font-size:13px; cursor:pointer; letter-spacing:1px;
+  box-shadow:0 4px 20px rgba(0,0,0,0.2); font-family:'Noto Serif TC',serif;
+}
+#mode-toggle:hover { filter:brightness(1.15); }
+#admin-toggle {
+  position:fixed; bottom:24px; right:160px; z-index:1000;
   background:var(--accent); color:white; border:none; border-radius:50px;
   padding:12px 20px; font-size:13px; cursor:pointer; letter-spacing:1px;
   box-shadow:0 4px 20px rgba(0,0,0,0.2); font-family:'Noto Serif TC',serif;
@@ -171,7 +178,8 @@ input[type=file] { display:none; }
 <body>
 <div class="site-bg" id="site-bg">
 
-<button id="admin-toggle" onclick="toggleAdmin()">⚙ 編輯模式</button>
+<button id="mode-toggle" onclick="toggleMode()">🏪 店家模式</button>
+<button id="admin-toggle" onclick="toggleAdmin()" style="display:none;">⚙ 編輯後台</button>
 
 <!-- Admin Panel -->
 <div id="admin-panel">
@@ -522,7 +530,48 @@ document.getElementById('edit-modal').addEventListener('click',function(e){
   if(e.target===this) closeModal();
 });
 
-// ===== localStorage 儲存 =====
+// ===== 顧客/店家模式切換 =====
+let isOwnerMode = false;
+
+function toggleMode() {
+  isOwnerMode = !isOwnerMode;
+  const modeBtn = document.getElementById('mode-toggle');
+  const adminBtn = document.getElementById('admin-toggle');
+  const cardBtns = document.querySelectorAll('.card-actions');
+  const logoWrap = document.querySelector('.logo-wrap');
+
+  if(isOwnerMode) {
+    modeBtn.textContent = '👤 顧客模式';
+    modeBtn.style.background = '#888';
+    adminBtn.style.display = 'block';
+    cardBtns.forEach(b => b.style.display = 'flex');
+    logoWrap.style.cursor = 'pointer';
+    logoWrap.title = '點擊更換Logo';
+  } else {
+    modeBtn.textContent = '🏪 店家模式';
+    modeBtn.style.background = 'var(--green)';
+    adminBtn.style.display = 'none';
+    document.getElementById('admin-panel').classList.remove('open');
+    cardBtns.forEach(b => b.style.display = 'none');
+    logoWrap.style.cursor = 'default';
+    logoWrap.title = '';
+  }
+}
+
+// 初始化顧客模式（隱藏編輯按鈕）
+function initCustomerMode() {
+  document.querySelectorAll('.card-actions').forEach(b => b.style.display = 'none');
+  document.querySelector('.logo-wrap').style.cursor = 'default';
+}
+
+// 覆蓋renderMenu確保顧客模式下也隱藏
+const _renderMenuMode = renderMenu;
+renderMenu = function() {
+  _renderMenuMode();
+  if(!isOwnerMode) {
+    document.querySelectorAll('.card-actions').forEach(b => b.style.display = 'none');
+  }
+};
 function saveAll() {
   // 儲存菜單（圖片太大只存非base64的預設圖）
   const saveItems = menuItems.map(i => {
@@ -642,6 +691,7 @@ removeBg = function() { _removeBg(); saveAll(); };
 // 啟動時載入
 loadAll();
 renderMenu();
+initCustomerMode();
 </script>
 </body>
 </html>
